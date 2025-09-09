@@ -21,7 +21,7 @@ function criarUsuarioRepositorie(novoUsuario) {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve("Usuario cadastrado.")
+                    resolve({id: this.ultimoId, ...novoUsuario})
                 }
             }
         )
