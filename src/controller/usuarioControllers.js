@@ -1,6 +1,6 @@
 import usuarioServices from "../service/usuarioServices.js"
 
-function criarUsuarioController(request, response) {
+async function criarUsuarioControllers(request, response) {
     const novoUsuario = request.body
 
     try {
@@ -12,5 +12,5 @@ function criarUsuarioController(request, response) {
 }
 
 export default {
-    criarUsuarioController,
+    criarUsuarioControllers
 }

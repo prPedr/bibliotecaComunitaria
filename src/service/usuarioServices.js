@@ -6,5 +6,5 @@ async function criarUsuarioService(novoUsuario) {
 }
 
 export default {
-    criarUsuarioService,
+    criarUsuarioService
 }
