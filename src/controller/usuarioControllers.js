@@ -4,7 +4,7 @@ async function criarUsuarioControllers(request, response) {
     const novoUsuario = request.body
 
     try {
-        const usuario = usuarioServices.criarUsuarioService(novoUsuario)
+        const usuario = usuarioServices.criaraUsuarioServices(novoUsuario)
         response.status(201).send({usuario})
     } catch (err) {
         return response.status(400).send(err.message)
@@ -12,5 +12,5 @@ async function criarUsuarioControllers(request, response) {
 }
 
 export default {
-    criarUsuarioControllers
+    criarUsuarioControllers,
 }

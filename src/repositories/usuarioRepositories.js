@@ -10,7 +10,7 @@ db.run(
     )`
 )
 
-function criarUsuarioRepositorie(novoUsuario) {
+function criarUsuarioRepositories(novoUsuario) {
     return new Promise((resolve, reject) => {
         const {nomeUsuario, email, senha, avatar} = novoUsuario
         db.run(
@@ -25,9 +25,9 @@ function criarUsuarioRepositorie(novoUsuario) {
                 }
             }
         )
-    })
+    }) 
 }
 
 export default {
-    criarUsuarioRepositorie,
+    criarUsuarioRepositories,
 }
