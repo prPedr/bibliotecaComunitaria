@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 async function criarUsuarioServices(novoUsuario) {
     const procurarUsuarioEmail = await usuarioRepositories.procurarUsuarioEmailRepositories(novoUsuario.email)
     if (procurarUsuarioEmail) {
-        throw new Error("Usuario ja existe no sistema, favor conferir e tentar novamente")
+        throw new Error("Usuario existente no sistema.")
     }
 
     const senhaHash = await bcrypt.hash(novoUsuario.senha, 10)
