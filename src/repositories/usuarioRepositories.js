@@ -16,18 +16,35 @@ function criarUsuarioRepositories(novoUsuario) {
         db.run(
             `INSERT INTO usuarios (nomeUsuario, email, senha, avatar)
             VALUES (?, ?, ?, ?)`, [nomeUsuario, email, senha, avatar],
-
             (err) => {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve({id: this.ultimoId, ...novoUsuario})
+                    resolve({id: this.usuarioCadastrado, ...novoUsuario})
                 }
             }
         )
-    }) 
+    })
+}
+
+function procurarUsuarioEmailRepositories(email) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT id, nomeUsuario, email, avatar
+            FROM usuarios
+            WHERE email = ?`, [email],
+            (err, linhaUsuario) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaUsuario)
+                }
+            }
+        )
+    })
 }
 
 export default {
     criarUsuarioRepositories,
+    procurarUsuarioEmailRepositories,
 }
