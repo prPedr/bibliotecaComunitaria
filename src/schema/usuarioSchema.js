@@ -1,10 +1,20 @@
-import { z} from "zod"
+import { z } from "zod";
 
 const validacaoSchema = z.object({
-    nomeUsuario: z.string().min(5, "O node de usuario deve conter pelo menos 5 caracteres"),
-    email: z.string.email("Email invalido"),
-    senha: z.stringFormat.min(6, "A senha deve conter pelo menos 6 caracteres"),
-    avatar: z.string.url("URL invalida")
-})
+  nomeUsuario: z.string
+    .min(5, "O nome de usuário deve conter pelo menos 5 caracteres"),
 
-export {validacaoSchema}
+  email: z.string
+    .email("Email inválido"),
+
+  senha: z.string
+    .min(6, "A senha deve conter pelo menos 6 caracteres")
+    .regex(
+      /^(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+={}\[\]|\\:;"'<>,.?/~`]).{6,}$/,
+      "Senha fraca: use letras maiúsculas, minúsculas, números e caracteres especiais; sem espaços"
+    ),
+
+  avatar: z.string.url("URL inválida"),
+});
+
+export { validacaoSchema };
