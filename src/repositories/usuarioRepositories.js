@@ -93,10 +93,28 @@ function listarTodosUsuariosRepositories() {
     })
 }
 
+function atualizarUsuarioRepositories() {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT id, nomeUsuario, email, avatar
+            FROM usuarios
+            WHERE id = ?`, [id],
+            (err, linhaUsuario) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaUsuario)
+                }
+            }
+        )
+    })
+}
+
 export default {
     criarUsuarioRepositories,
     procurarUsuarioEmailRepositories,
     procurarUsuarioIdPeositories,
     procurarUsuarioNomeUsuarioRepositories,
-    listarTodosUsuariosRepositories
+    listarTodosUsuariosRepositories,
+    atualizarUsuarioRepositories
 }

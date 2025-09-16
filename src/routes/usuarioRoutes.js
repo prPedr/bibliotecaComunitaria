@@ -8,5 +8,6 @@ const router = Router()
 
 router.post("/usuarios", validacao(usuarioSchema), usuarioControllers.criarUsuarioControllers)
 router.get("/usuarios", usuarioControllers.listarTodosUsuariosControllers)
+router.get("/usuarios/:id", usuarioControllers.procurarUsuarioIdControllers)
 
 export default router

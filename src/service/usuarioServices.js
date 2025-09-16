@@ -16,7 +16,7 @@ async function criarUsuarioServices(novoUsuario) {
     return usuario
 }
 
-async function procurarUsuarioId(id) {
+async function procurarUsuarioIdServices(id) {
     const usuario = await usuarioRepositories.procurarUsuarioIdPeositories(id)
     if (!usuario) {
         throw new Error("Id de usuario nao encontrado")
@@ -24,7 +24,7 @@ async function procurarUsuarioId(id) {
     return usuario
 }
 
-async function procurarUsuarioNomeUsuario(nomeUsuario) {
+async function procurarUsuarioNomeUsuarioServices(nomeUsuario) {
     const usuario = await usuarioRepositories.procurarUsuarioNomeUsuarioRepositories(nomeUsuario)
     if (!usuario) {
         throw new Error("Nome de usuario nao encontrato")
@@ -40,6 +40,6 @@ async function listarTodosUsuariosServices() {
 export default {
     criarUsuarioServices,
     listarTodosUsuariosServices,
-    procurarUsuarioId,
-    procurarUsuarioNomeUsuario
+    procurarUsuarioIdServices,
+    procurarUsuarioNomeUsuarioServices
 }
