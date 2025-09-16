@@ -44,7 +44,59 @@ function procurarUsuarioEmailRepositories(email) {
     })
 }
 
+function procurarUsuarioIdPeositories(id) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT id, nomeUsuario, email, avatar
+            FROM usuarios
+            WHERE id = ?`, [id],
+            (err, linhaUsuario) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaUsuario)
+                }
+            }
+        )
+    })
+}
+
+function procurarUsuarioNomeUsuarioRepositories(nomeUsuario) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT id, nomeUsuario, email, avatar
+            FROM usuarios
+            WHERE nomeUsuario = ?`, [nomeUsuario],
+            (err, linhaUsuario) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaUsuario)
+                }
+            }
+        )
+    })
+}
+
+function listarTodosUsuariosRepositories() {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT id, nomeUsuario, email, avatar FROM usuarios`, [],
+            (err, linhasUsuarios) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhasUsuarios)
+                }
+            }
+        )
+    })
+}
+
 export default {
     criarUsuarioRepositories,
     procurarUsuarioEmailRepositories,
+    procurarUsuarioIdPeositories,
+    procurarUsuarioNomeUsuarioRepositories,
+    listarTodosUsuariosRepositories
 }

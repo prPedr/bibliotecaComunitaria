@@ -11,6 +11,16 @@ async function criarUsuarioControllers(request, response) {
     }
 }
 
+async function listarTodosUsuariosControllers(request, response) {
+    try {
+        const usuarios = await usuarioServices.listarTodosUsuariosServices()
+        response.send({usuarios}) 
+    } catch (err) {
+        response.status(404).send(err.message)
+    }
+}
+
 export default {
     criarUsuarioControllers,
+    listarTodosUsuariosControllers,
 }

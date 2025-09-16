@@ -7,5 +7,6 @@ import { usuarioSchema } from "../schema/usuarioSchema.js"
 const router = Router()
 
 router.post("/usuarios", validacao(usuarioSchema), usuarioControllers.criarUsuarioControllers)
+router.get("/usuarios", usuarioControllers.listarTodosUsuariosControllers)
 
 export default router
