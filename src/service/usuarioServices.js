@@ -17,7 +17,7 @@ async function criarUsuarioServices(novoUsuario) {
 }
 
 async function procurarUsuarioIdServices(id) {
-    const usuario = await usuarioRepositories.procurarUsuarioIdPeositories(id)
+    const usuario = await usuarioRepositories.procurarUsuarioIdReositories(id)
     if (!usuario) {
         throw new Error("Id de usuario nao encontrado")
     }
@@ -30,7 +30,7 @@ async function listarTodosUsuariosServices() {
 }
 
 async function atualizarUsuarioServices(novoUsuario, usuarioId) {
-    const usuario = await usuarioRepositories.procurarUsuarioIdPeositories(usuarioId)
+    const usuario = await usuarioRepositories.procurarUsuarioIdReositories(usuarioId)
     if (!usuario) {
         throw new Error("Id de usuario nao encontrado")
     }
@@ -43,9 +43,20 @@ async function atualizarUsuarioServices(novoUsuario, usuarioId) {
     return usuarioAtualizado
 }
 
+async function deletarUsuarioServices(usuarioId) {
+    const usuario = await usuarioRepositories.procurarUsuarioIdReositories(usuarioId)
+    if (!usuario) {
+        throw new Error("Id de usuario nao encontrado")
+    }
+
+    const message = await usuarioRepositories.deletarUsuarioRepositories(usuarioId)
+    return message
+}
+
 export default {
     criarUsuarioServices,
     listarTodosUsuariosServices,
     procurarUsuarioIdServices,
     atualizarUsuarioServices,
+    deletarUsuarioServices,
 }

@@ -17,4 +17,11 @@ const usuarioSchema = z.object({
   avatar: z.string().url("URL inválida"),
 });
 
-export { usuarioSchema };
+const usuarioIdSchema = z.object({
+  usuarioId: z
+    .string()
+    .regex(/^\d+$/, "O id de usuário deve ser um número inteiro positivo")
+    .transform((val) => Number(val))
+})
+
+export { usuarioSchema, usuarioIdSchema };

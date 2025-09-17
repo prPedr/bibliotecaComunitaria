@@ -44,7 +44,7 @@ function procurarUsuarioEmailRepositories(email) {
     })
 }
 
-function procurarUsuarioIdPeositories(id) {
+function procurarUsuarioIdReositories(id) {
     return new Promise((resolve, reject) => {
         db.get(
             `SELECT id, nomeUsuario, email, avatar
@@ -97,10 +97,27 @@ function atualizarUsuarioRepositories(id, usuario) {
     })
 }
 
+function deletarUsuarioRepositories(id) {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `DELETE FROM usuarios
+            WHERE id = ?`, [id],
+            (err) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve({message: "Usuario deletado com sucesso", id})
+                }
+            }
+        )
+    })
+}
+
 export default {
     criarUsuarioRepositories,
     procurarUsuarioEmailRepositories,
-    procurarUsuarioIdPeositories,
+    procurarUsuarioIdReositories,
     listarTodosUsuariosRepositories,
-    atualizarUsuarioRepositories
+    atualizarUsuarioRepositories,
+    deletarUsuarioRepositories
 }

@@ -7,7 +7,7 @@ async function criarUsuarioControllers(request, response) {
         const usuario = await usuarioServices.criarUsuarioServices(novoUsuario)
         response.status(201).send({usuario})
     } catch (err) {
-        return response.status(400).send(err.message)
+        response.status(400).send(err.message)
     }
 }
 
@@ -43,9 +43,21 @@ async function atualizarUsuarioControllers(request, response) {
     }
 }
 
+async function deletarUsuarioController(request, response) {
+    const {usuarioId} = request.params
+
+    try {
+        const usuario = await usuarioServices.deletarUsuarioServices(usuarioId)
+        response.send({usuario})
+    } catch (err) {
+        response.status(404).send(err.message)
+    }
+}
+
 export default {
     criarUsuarioControllers,
     listarTodosUsuariosControllers,
     procurarUsuarioIdControllers,
-    atualizarUsuarioControllers
+    atualizarUsuarioControllers,
+    deletarUsuarioController,
 }
