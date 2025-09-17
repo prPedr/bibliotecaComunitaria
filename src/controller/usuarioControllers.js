@@ -31,8 +31,21 @@ async function procurarUsuarioIdControllers(request, response) {
     }
 }
 
+async function atualizarUsuarioControllers(request, response) {
+    const {id} = request.params
+    const novoUsuario = request.body
+
+    try {
+        const usuario = await usuarioServices.atualizarUsuarioServices(novoUsuario, id)
+        response.send({usuario})
+    } catch (err) {
+        response.status(404).send(err.message)
+    }
+}
+
 export default {
     criarUsuarioControllers,
     listarTodosUsuariosControllers,
-    procurarUsuarioIdControllers
+    procurarUsuarioIdControllers,
+    atualizarUsuarioControllers
 }

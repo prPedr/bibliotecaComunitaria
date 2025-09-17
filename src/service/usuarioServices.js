@@ -24,22 +24,28 @@ async function procurarUsuarioIdServices(id) {
     return usuario
 }
 
-async function procurarUsuarioNomeUsuarioServices(nomeUsuario) {
-    const usuario = await usuarioRepositories.procurarUsuarioNomeUsuarioRepositories(nomeUsuario)
-    if (!usuario) {
-        throw new Error("Nome de usuario nao encontrato")
-    }
-    return usuario
-}
-
 async function listarTodosUsuariosServices() {
     const usuarios = await usuarioRepositories.listarTodosUsuariosRepositories()
     return usuarios
+}
+
+async function atualizarUsuarioServices(novoUsuario, usuarioId) {
+    const usuario = await usuarioRepositories.procurarUsuarioIdPeositories(usuarioId)
+    if (!usuario) {
+        throw new Error("Id de usuario nao encontrado")
+    }
+
+    if (novoUsuario.senha) {
+        novoUsuario.senha = await bcrypt.hash(novoUsuario.senha, 10)
+    }
+
+    const usuarioAtualizado = usuarioRepositories.atualizarUsuarioRepositories(usuarioId, novoUsuario)
+    return usuarioAtualizado
 }
 
 export default {
     criarUsuarioServices,
     listarTodosUsuariosServices,
     procurarUsuarioIdServices,
-    procurarUsuarioNomeUsuarioServices
+    atualizarUsuarioServices,
 }

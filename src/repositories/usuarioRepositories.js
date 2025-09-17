@@ -61,23 +61,6 @@ function procurarUsuarioIdPeositories(id) {
     })
 }
 
-function procurarUsuarioNomeUsuarioRepositories(nomeUsuario) {
-    return new Promise((resolve, reject) => {
-        db.get(
-            `SELECT id, nomeUsuario, email, avatar
-            FROM usuarios
-            WHERE nomeUsuario = ?`, [nomeUsuario],
-            (err, linhaUsuario) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(linhaUsuario)
-                }
-            }
-        )
-    })
-}
-
 function listarTodosUsuariosRepositories() {
     return new Promise((resolve, reject) => {
         db.all(
@@ -93,17 +76,21 @@ function listarTodosUsuariosRepositories() {
     })
 }
 
-function atualizarUsuarioRepositories() {
+function atualizarUsuarioRepositories(id, usuario) {
     return new Promise((resolve, reject) => {
-        db.get(
-            `SELECT id, nomeUsuario, email, avatar
-            FROM usuarios
-            WHERE id = ?`, [id],
-            (err, linhaUsuario) => {
+        const {nomeUsuario, email, senha, avatar} = usuario
+        db.run(
+            `UPDATE usuarios SET
+                nomeUsuario = ?,
+                email = ?,
+                senha = ?,
+                avatar = ?
+            WHERE id = ?`, [nomeUsuario, email, senha, avatar, id],
+            (err) => {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve(linhaUsuario)
+                    resolve({id, ...usuario})
                 }
             }
         )
@@ -114,7 +101,6 @@ export default {
     criarUsuarioRepositories,
     procurarUsuarioEmailRepositories,
     procurarUsuarioIdPeositories,
-    procurarUsuarioNomeUsuarioRepositories,
     listarTodosUsuariosRepositories,
     atualizarUsuarioRepositories
 }
