@@ -78,22 +78,28 @@ function listarTodosUsuariosRepositories() {
 
 function atualizarUsuarioRepositories(id, usuario) {
     return new Promise((resolve, reject) => {
-        const {nomeUsuario, email, senha, avatar} = usuario
-        db.run(
-            `UPDATE usuarios SET
-                nomeUsuario = ?,
-                email = ?,
-                senha = ?,
-                avatar = ?
-            WHERE id = ?`, [nomeUsuario, email, senha, avatar, id],
-            (err) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve({id, ...usuario})
-                }
+        const filtros = ["nomeUsuario", "email", "senha", "avatar"]
+        let query = "UPDATE usuarios SET"
+        const valores = []
+
+        filtros.forEach((filtro) => {
+            if (usuario[filtro] !== undefined) {
+                query += ` ${filtro} = ?,`
+                valores.push(usuario[filtro])
             }
-        )
+        })
+
+        query = query.slice(0, -1)
+        query += " WHERE id = ?"
+        valores.push(id)
+
+        db.run(query, valores, (err) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve({ ...usuario, id })
+            }
+        })
     })
 }
 

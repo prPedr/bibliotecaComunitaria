@@ -39,7 +39,7 @@ async function atualizarUsuarioServices(novoUsuario, usuarioId) {
         novoUsuario.senha = await bcrypt.hash(novoUsuario.senha, 10)
     }
 
-    const usuarioAtualizado = usuarioRepositories.atualizarUsuarioRepositories(usuarioId, novoUsuario)
+    const usuarioAtualizado = await usuarioRepositories.atualizarUsuarioRepositories(usuarioId, novoUsuario)
     return usuarioAtualizado
 }
 
