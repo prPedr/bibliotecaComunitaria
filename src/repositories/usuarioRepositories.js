@@ -16,11 +16,11 @@ function criarUsuarioRepositories(novoUsuario) {
         db.run(
             `INSERT INTO usuarios (nomeUsuario, email, senha, avatar)
             VALUES (?, ?, ?, ?)`, [nomeUsuario, email, senha, avatar],
-            (err) => {
+            function (err) {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve({id: this.usuarioCadastrado, ...novoUsuario})
+                    resolve({id: this.lastID, ...novoUsuario})
                 }
             }
         )

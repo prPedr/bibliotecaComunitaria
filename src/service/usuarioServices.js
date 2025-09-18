@@ -13,8 +13,7 @@ async function criarUsuarioServices(novoUsuario) {
     if (!usuario) {
         throw new Error("Falha ao criar o usuario")
     }
-    const usuarioEmail = await usuarioRepositories.procurarUsuarioEmailRepositories(usuario.email)
-    const tokeUsuario = tokenJwt(usuarioEmail.id)
+    const tokeUsuario = tokenJwt(usuario.id)
     return tokeUsuario
 }
 
