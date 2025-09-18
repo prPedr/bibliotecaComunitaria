@@ -1,4 +1,5 @@
 import usuarioRepositories from "../repositories/usuarioRepositories.js"
+import {tokenJwt} from "./autenticacaoServices.js"
 import bcrypt from "bcrypt"
 
 async function criarUsuarioServices(novoUsuario) {
@@ -12,8 +13,9 @@ async function criarUsuarioServices(novoUsuario) {
     if (!usuario) {
         throw new Error("Falha ao criar o usuario")
     }
-
-    return usuario
+    const usuarioEmail = await usuarioRepositories.procurarUsuarioEmailRepositories(usuario.email)
+    const tokeUsuario = tokenJwt(usuarioEmail.id)
+    return tokeUsuario
 }
 
 async function procurarUsuarioIdServices(id) {
