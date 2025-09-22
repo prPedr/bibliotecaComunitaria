@@ -30,7 +30,7 @@ function criarUsuarioRepositories(novoUsuario) {
 function procurarUsuarioEmailRepositories(email) {
     return new Promise((resolve, reject) => {
         db.get(
-            `SELECT id, nomeUsuario, email, avatar
+            `SELECT id, nomeUsuario, email, avatar, senha
             FROM usuarios
             WHERE email = ?`, [email],
             (err, linhaUsuario) => {

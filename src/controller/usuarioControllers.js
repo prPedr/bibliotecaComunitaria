@@ -1,4 +1,5 @@
 import usuarioServices from "../service/usuarioServices.js"
+import {loginService} from "../service/autenticacaoServices.js"
 
 async function criarUsuarioControllers(request, response) {
     const novoUsuario = request.body
@@ -6,6 +7,17 @@ async function criarUsuarioControllers(request, response) {
     try {
         const tokenUsuario = await usuarioServices.criarUsuarioServices(novoUsuario)
         response.status(201).send({tokenUsuario})
+    } catch (err) {
+        response.status(400).send(err.message)
+    }
+}
+
+async function loginUsuarioControllers(request, response) {
+    const {email, senha} = request.body
+
+    try {
+        const tokenUsuario = await loginService(email, senha)
+        response.send({tokenUsuario})
     } catch (err) {
         response.status(400).send(err.message)
     }
@@ -56,6 +68,7 @@ async function deletarUsuarioController(request, response) {
 
 export default {
     criarUsuarioControllers,
+    loginUsuarioControllers,
     listarTodosUsuariosControllers,
     procurarUsuarioIdControllers,
     atualizarUsuarioControllers,
