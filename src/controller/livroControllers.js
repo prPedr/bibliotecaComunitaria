@@ -21,7 +21,46 @@ async function procurarLivroControllers(request, response) {
     }
 }
 
+async function procurarLivroIdControllers(request, response) {
+    const livroId = request.params.id
+
+    try {
+        const livro = livroServices.procurarLivroIdServices(livroId)
+        return response.send(livro)
+    } catch (err) {
+        response.status(404).send(err.message)
+    }
+}
+
+async function atualizarLivroControllers(request, response) {
+    const atualizarLirvo = request.body
+    const livroId = request.params.id
+    const usuarioId = request.usuarioId
+
+    try {
+        const responseLivro = await livroServices.atualizarLivroServices(atualizarLirvo, livroId, usuarioId)
+        response.send(responseLivro)
+    } catch (err) {
+        response.status(404).send(err.message)
+    }
+}
+
+async function deletarUsuarioControllers(request, response) {
+    const livroId = request.params.id
+    const usuarioId = request.usuarioId
+
+    try {
+        const responseLivro = await livroServices.deletarLivroServices(livroId, usuarioId)
+        response.send(responseLivro)
+    } catch (err) {
+        response.status(404).send(err.message)
+    }
+}
+
 export default {
     criarLivroControllers,
-    procurarLivroControllers
+    procurarLivroControllers,
+    procurarLivroIdControllers,
+    atualizarLivroControllers,
+    deletarUsuarioControllers,
 }

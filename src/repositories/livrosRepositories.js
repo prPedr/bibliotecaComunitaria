@@ -39,7 +39,66 @@ function procurarLivrosRepositories() {
     })
 }
 
+function procurarLivroIdRepositories() {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT * FROM livros WHERE id = ?`, [livroId], (err, linhaLivro) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaLivro)
+                }
+            }
+        )
+    })
+}
+
+function atualizarLivrosRepositories() {
+    return new Promise((resolve, reject) => {
+        const filtros = ["titulo", "autor", "usuarioId"]
+        let query = "UPDATE livros SET"
+        const valores = []
+
+        filtros.forEach(filtro => {
+            if (atualizaLirvo[filtro] !== undefined) {
+                query += ` ${filtro} = ?,`
+                valores.push(atualizaLirvo[filtro])
+            }
+        })
+
+        query = query.slice(0, -1)
+
+        query += " WHERE id = ?"
+        valores.push(livroId)
+
+        db.run(query, valores, function(err) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve({id: livroId, ...atualizaLirvo})
+            }
+        })
+    })
+}
+
+function deletarLivroRepositories(livroId) {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `DELETE FROM livros WHERE id = ?`, [livroId], function (err) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve({message: "Livro deletado", livroId})
+                }
+            }
+        )
+    })
+}
+
 export default {
     criarLivroRepositories,
     procurarLivrosRepositories,
+    procurarLivroIdRepositories,
+    atualizarLivrosRepositories,
+    deletarLivroRepositories,
 }
