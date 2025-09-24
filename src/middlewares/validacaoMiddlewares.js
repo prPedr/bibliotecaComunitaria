@@ -1,4 +1,5 @@
 import { usuarioIdSchema } from "../schema/usuarioSchema.js"
+import { livroIdSchema } from "../schema/livroSchema.js"
 
 const validacao = (schema) => (request, response, next) => {
     const resultado = schema.safeParse(request.body)
@@ -29,4 +30,24 @@ const validacaoUsuarioId = (request, response, next) => {
     next()
 }
 
-export { validacao, validacaoUsuarioId }
+const validacaoLivroId = (request, response, next) => {
+    const resultadoLivro = livroIdSchema.safeParse({ livroId: request.params.livroId})
+
+    if(!resultadoLivro.success) {
+        return response.status(400).json({
+            errors: resultadoLivro.error.issues.map(err => ({
+                campo: err.path.join("."),
+                mensagem: err.message
+            }))
+        })
+    }
+
+    request.params.livroId = resultadoLivro.data.livroId
+    next()
+}
+
+export {
+    validacao,
+    validacaoUsuarioId,
+    validacaoLivroId,
+}

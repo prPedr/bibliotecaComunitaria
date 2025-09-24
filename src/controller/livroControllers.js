@@ -22,10 +22,10 @@ async function procurarLivroControllers(request, response) {
 }
 
 async function procurarLivroIdControllers(request, response) {
-    const livroId = request.params.id
+    const livroId = request.params.livroId
 
     try {
-        const livro = livroServices.procurarLivroIdServices(livroId)
+        const livro = await livroServices.procurarLivroIdServices(livroId)
         return response.send(livro)
     } catch (err) {
         response.status(404).send(err.message)
@@ -33,20 +33,20 @@ async function procurarLivroIdControllers(request, response) {
 }
 
 async function atualizarLivroControllers(request, response) {
-    const atualizarLirvo = request.body
-    const livroId = request.params.id
+    const atualizarLivro = request.body
+    const livroId = request.params.livroId
     const usuarioId = request.usuarioId
 
     try {
-        const responseLivro = await livroServices.atualizarLivroServices(atualizarLirvo, livroId, usuarioId)
+        const responseLivro = await livroServices.atualizarLivroServices(atualizarLivro, livroId, usuarioId)
         response.send(responseLivro)
     } catch (err) {
         response.status(404).send(err.message)
     }
 }
 
-async function deletarUsuarioControllers(request, response) {
-    const livroId = request.params.id
+async function deletarLivroControllers(request, response) {
+    const livroId = request.params.livroId
     const usuarioId = request.usuarioId
 
     try {
@@ -62,5 +62,5 @@ export default {
     procurarLivroControllers,
     procurarLivroIdControllers,
     atualizarLivroControllers,
-    deletarUsuarioControllers,
+    deletarLivroControllers,
 }

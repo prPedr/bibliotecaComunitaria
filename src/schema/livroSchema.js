@@ -5,4 +5,14 @@ const livroSchema = z.object({
     autor: z.string().min(1, "E necessario ter um autor")
 })
 
-export {livroSchema}
+const livroIdSchema = z.object({
+  livroId: z
+    .string()
+    .regex(/^\d+$/, "O id de usuário deve ser um número inteiro positivo")
+    .transform((val) => Number(val))
+})
+
+export {
+    livroSchema,
+    livroIdSchema,
+}

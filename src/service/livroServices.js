@@ -21,17 +21,17 @@ async function procurarLivroIdServices(livroId) {
     return livro
 }
 
-async function atualizarLivroServices(atualizaLirvo, livroId, usuarioId) {
-    const livro = await livrosRepositories.atualizarLivrosRepositories(livroId)
+async function atualizarLivroServices(atualizaLivro, livroId, usuarioId) {
+    const livro = await livrosRepositories.procurarLivroIdRepositories(livroId)
     if (!livro) {
-        throw new Error("Livro nao encontrato")
+        throw new Error("Livro nao encontrado")
     }
-    
+
     if (livro.usuarioId !== usuarioId) {
         throw new Error("Nao autorizado")
     }
 
-    const response = await livrosRepositories.atualizarLivrosRepositories(atualizaLirvo, livroId)
+    const response = await livrosRepositories.atualizarLivrosRepositories(atualizaLivro, livroId)
     return response
 }
 

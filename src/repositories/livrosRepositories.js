@@ -39,7 +39,7 @@ function procurarLivrosRepositories() {
     })
 }
 
-function procurarLivroIdRepositories() {
+function procurarLivroIdRepositories(livroId) {
     return new Promise((resolve, reject) => {
         db.get(
             `SELECT * FROM livros WHERE id = ?`, [livroId], (err, linhaLivro) => {
@@ -53,18 +53,22 @@ function procurarLivroIdRepositories() {
     })
 }
 
-function atualizarLivrosRepositories() {
+function atualizarLivrosRepositories(atualizarLivro, livroId) {
     return new Promise((resolve, reject) => {
         const filtros = ["titulo", "autor", "usuarioId"]
         let query = "UPDATE livros SET"
         const valores = []
 
         filtros.forEach(filtro => {
-            if (atualizaLirvo[filtro] !== undefined) {
+            if (atualizarLivro[filtro] !== undefined) {
                 query += ` ${filtro} = ?,`
-                valores.push(atualizaLirvo[filtro])
+                valores.push(atualizarLivro[filtro])
             }
         })
+
+        if (valores.length === 0) {
+            return reject(new Error("Nenhum campo válido para atualizar"))
+        }
 
         query = query.slice(0, -1)
 
@@ -75,11 +79,12 @@ function atualizarLivrosRepositories() {
             if (err) {
                 reject(err)
             } else {
-                resolve({id: livroId, ...atualizaLirvo})
+                resolve({ id: livroId, ...atualizarLivro })
             }
         })
     })
 }
+
 
 function deletarLivroRepositories(livroId) {
     return new Promise((resolve, reject) => {
