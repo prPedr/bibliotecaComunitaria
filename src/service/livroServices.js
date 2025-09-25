@@ -49,10 +49,20 @@ async function deletarLivroServices(livroId, usuarioId) {
     return response
 }
 
+async function pesquisarTituloAutorServices(pesquisa) {
+    if (!pesquisa) {
+        return await livrosRepositories.procurarLivroIdRepositories(livroId)
+    }
+
+    const livros = await livrosRepositories.pesquisarTituloAutorRepositories(pesquisa)
+    return livros
+}
+
 export default {
     criarLivroServices,
     procurarLivroServices,
     procurarLivroIdServices,
     atualizarLivroServices,
     deletarLivroServices,
+    pesquisarTituloAutorServices,
 }

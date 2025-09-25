@@ -57,10 +57,22 @@ async function deletarLivroControllers(request, response) {
     }
 }
 
+async function pesquisarTituloAutorControllers(request, response) {
+    const {pesquisa} = request.query
+
+    try {
+        const livros = await livroServices.pesquisarTituloAutorServices(pesquisa)
+        response.send(livros)
+    } catch (err) {
+        response.status(400).send(err.message)
+    }
+}
+
 export default {
     criarLivroControllers,
     procurarLivroControllers,
     procurarLivroIdControllers,
     atualizarLivroControllers,
     deletarLivroControllers,
+    pesquisarTituloAutorControllers,
 }

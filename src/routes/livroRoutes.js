@@ -11,6 +11,7 @@ router.get("/livros", livroControllers.procurarLivroControllers)
 
 router.use(autenticacaoUsuarioMiddlewares)
 router.post("/livros", validacao(livroSchema), livroControllers.criarLivroControllers)
+router.get("/livros/pesquisa", livroControllers.pesquisarTituloAutorControllers)
 router.get("/livros/:livroId", validacaoLivroId, livroControllers.procurarLivroIdControllers)
 router.patch("/livros/:livroId", validacaoLivroId, livroControllers.atualizarLivroControllers)
 router.delete("/livros/:livroId", validacaoLivroId, livroControllers.deletarLivroControllers)

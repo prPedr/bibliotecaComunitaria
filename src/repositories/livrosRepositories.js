@@ -85,7 +85,6 @@ function atualizarLivrosRepositories(atualizarLivro, livroId) {
     })
 }
 
-
 function deletarLivroRepositories(livroId) {
     return new Promise((resolve, reject) => {
         db.run(
@@ -100,10 +99,26 @@ function deletarLivroRepositories(livroId) {
     })
 }
 
+function pesquisarTituloAutorRepositories(pesquisa) {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT * FROM livros WHERE titulo LIKE ? OR autor LIKE ?`, [`%${pesquisa}%`, `%${pesquisa}%`],
+            (err, linhaLivro) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaLivro)
+                }
+            }
+        )
+    })
+}
+
 export default {
     criarLivroRepositories,
     procurarLivrosRepositories,
     procurarLivroIdRepositories,
     atualizarLivrosRepositories,
     deletarLivroRepositories,
+    pesquisarTituloAutorRepositories,
 }
