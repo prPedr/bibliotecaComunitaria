@@ -6,22 +6,36 @@ db.run(
         usuarioId INTEGER,
         livroId INTEGER,
         dataEntrega DATE,
-        FOREIGN KEY (usuarioId) REFERENCES usuario(id),
-        FOREIGN KEY (livroId) REFERENCES (livros(id))
+        FOREIGN KEY (usuarioId) REFERENCES usuarios(id),
+        FOREIGN KEY (livroId) REFERENCES livros(id)
     )`
 )
 
-function criarEmprestimoRepositories(novoEmprestimo, usuarioId, livroId) {
+function criarEmprestimoRepositories(usuarioId, livroId, dataEntrega) {
     return new Promise((resolve, reject) => {
-        const {dataEntrega} = novoEmprestimo
         db.run(
-            `INSERT INTO emprestimos (usuarioId, livroId, dataEntreega)
+            `INSERT INTO emprestimos (usuarioId, livroId, dataEntrega)
             VALUES (?, ?, ?)`, [usuarioId, livroId, dataEntrega],
-            (err) => {
+            function (err) {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve({id: this.proximoEmprestimo, ...novoEmprestimo})
+                    resolve({id: this.emprestimoId, usuarioId, livroId})
+                }
+            }
+        )
+    })
+}
+
+function procurarEmprestimoRepositories() {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT * FROM emprestimos`, [],
+            (err, linhasEmprestimos) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhasEmprestimos)
                 }
             }
         )
@@ -30,4 +44,5 @@ function criarEmprestimoRepositories(novoEmprestimo, usuarioId, livroId) {
 
 export default {
     criarEmprestimoRepositories,
+    procurarEmprestimoRepositories,
 }

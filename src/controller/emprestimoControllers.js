@@ -1,13 +1,21 @@
 import emprestimoServices from "../service/emprestimoServices.js"
 
 async function criarEmprestimoControllers(request, response) {
-    const novoEmprestimo = request.body
+    const {livroId, dataEntrega} = request.body
     const usuarioId = request.usuarioId
-    const livroId = request.livroId
 
     try {
-        const emprestimo = await emprestimoServices.criarEmprestimoControllers(novoEmprestimo, usuarioId, livroId)
-        response.status(200).send(emprestimo)
+        const emprestimo = await emprestimoServices.criarEmprestimosServices(usuarioId, livroId, dataEntrega)
+        response.status(201).send({emprestimo})
+    } catch (err) {
+        response.status(400).send(err.message)
+    }
+}
+
+async function procurarEmprestimoControllers(request, response) {
+    try {
+        const emprestimo = await emprestimoServices.procurarEmprestimoServices()
+        response.send(emprestimo)
     } catch (err) {
         response.status(400).send(err.message)
     }
@@ -15,5 +23,5 @@ async function criarEmprestimoControllers(request, response) {
 
 export default {
     criarEmprestimoControllers,
-
+    procurarEmprestimoControllers
 }
