@@ -21,7 +21,32 @@ async function procurarEmprestimoControllers(request, response) {
     }
 }
 
+async function procurarEmprestimoIdControllers(request, response) {
+    const emprestimoId = request.params.emprestimoId
+
+    try {
+        const emprestimo = await emprestimoServices.procurarEmprestimoIdServices(emprestimoId)
+        response.send(emprestimo)
+    } catch (err) {
+        response.status(400).send(err.message)
+    }
+}
+
+async function deletarEmprestimoControllers(request, response) {
+    const emprestimoId = request.params.emprestimoId
+    const usuarioId = request.usuarioId
+
+    try {
+        const emprestimo = await emprestimoServices.deletarEmprestimoServices(emprestimoId, usuarioId)
+        response.send(emprestimo)
+    } catch (err) {
+        response.status(401).send(err.message)
+    }
+}
+
 export default {
     criarEmprestimoControllers,
-    procurarEmprestimoControllers
+    procurarEmprestimoControllers,
+    procurarEmprestimoIdControllers,
+    deletarEmprestimoControllers,
 }

@@ -1,5 +1,6 @@
 import { usuarioIdSchema } from "../schema/usuarioSchema.js"
 import { livroIdSchema } from "../schema/livroSchema.js"
+import { emprestimoIdSchema } from "../schema/emprestimoSchema.js"
 
 const validacao = (schema) => (request, response, next) => {
     const resultado = schema.safeParse(request.body)
@@ -31,7 +32,7 @@ const validacaoUsuarioId = (request, response, next) => {
 }
 
 const validacaoLivroId = (request, response, next) => {
-    const resultadoLivro = livroIdSchema.safeParse({ livroId: request.params.livroId})
+    const resultadoLivro = livroIdSchema.safeParse({ livroId: request.params.livroId })
 
     if(!resultadoLivro.success) {
         return response.status(400).json({
@@ -46,8 +47,25 @@ const validacaoLivroId = (request, response, next) => {
     next()
 }
 
+const validacaoEmprestimoId = (request, response, next) => {
+    const resultadoEmprestimo = emprestimoIdSchema.safeParse({ emprestimoIs: request.params.emprestimoId })
+
+    if (!resultadoEmprestimo.success) {
+        return response.status(400).json({
+            errors: resultadoEmprestimo.error.issues.map(err => ({
+                campo: err.path.join("."),
+                messagem: err.message
+            }))
+        })
+    }
+
+    ReadableStreamBYOBRequest.params.emprestimoId = resultadoEmprestimo.data.emprestimoId
+    next()
+}
+
 export {
     validacao,
     validacaoUsuarioId,
     validacaoLivroId,
+    validacaoEmprestimoId,
 }

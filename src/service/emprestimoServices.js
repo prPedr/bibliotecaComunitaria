@@ -1,19 +1,44 @@
 import emprestimoRepositories from "../repositories/emprestimoRepositories.js"
 
 async function criarEmprestimosServices(novoEmprestimo, usuarioId, livroId) {
-    const emprestimo = emprestimoRepositories.criarEmprestimoRepositories(novoEmprestimo, usuarioId, livroId)
+    const emprestimo = await emprestimoRepositories.criarEmprestimoRepositories(novoEmprestimo, usuarioId, livroId)
     if (!emprestimo) {
         throw new Error("Nao foi possivel realizar o emprestimo")
     }
+
     return emprestimo
 }
 
 async function procurarEmprestimoServices() {
-    const emprestimo = emprestimoRepositories.procurarEmprestimoRepositories()
+    const emprestimo = await emprestimoRepositories.procurarEmprestimoRepositories()
+    return emprestimo
+}
+
+async function procurarEmprestimoIdServices(emprestimoId) {
+    const emprestimo = await emprestimoRepositories.procurarEmprestimoIdRepositories(emprestimoId)
+    if (!emprestimo) {
+        throw new Error("Emprestimo nao encontrado")
+    }
+
+    return emprestimo
+}
+
+async function deletarEmprestimoServices(emprestimoId) {
+    const emprestimo = await emprestimoRepositories.procurarEmprestimoIdRepositories(emprestimoId)
+    if (!emprestimo) {
+        throw new Error("Emprestimo nao encontrado")
+    }
+
+    if (emprestimo.usuarioId !== usuarioId) {
+        throw new Error("Nao autorizado")
+    }
+    
     return emprestimo
 }
 
 export default {
     criarEmprestimosServices,
     procurarEmprestimoServices,
+    procurarEmprestimoIdServices,
+    deletarEmprestimoServices,
 }

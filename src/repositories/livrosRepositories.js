@@ -42,7 +42,8 @@ function procurarLivrosRepositories() {
 function procurarLivroIdRepositories(livroId) {
     return new Promise((resolve, reject) => {
         db.get(
-            `SELECT * FROM livros WHERE id = ?`, [livroId], (err, linhaLivro) => {
+            `SELECT * FROM livros WHERE id = ?`, [livroId],
+            (err, linhaLivro) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -88,7 +89,8 @@ function atualizarLivrosRepositories(atualizarLivro, livroId) {
 function deletarLivroRepositories(livroId) {
     return new Promise((resolve, reject) => {
         db.run(
-            `DELETE FROM livros WHERE id = ?`, [livroId], function (err) {
+            `DELETE FROM livros WHERE id = ?`, [livroId],
+            function (err) {
                 if (err) {
                     reject(err)
                 } else {

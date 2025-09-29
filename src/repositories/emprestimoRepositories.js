@@ -42,7 +42,39 @@ function procurarEmprestimoRepositories() {
     })
 }
 
+function procurarEmprestimoIdRepositories(emprestimoId) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT * FROM emprestimos WHERE id = ?`, [emprestimoId],
+            (err, linhaEmprestimo) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(linhaEmprestimo)
+                }
+            }
+        )
+    })
+}
+
+function deletarEmprestimoRepositories(emprestimoId) {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `DELETE FROM emprestimos WHERE id = ?` [emprestimoId],
+            function (err) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve({message: "Emprestimo deletado", emprestimoId})
+                }
+            }
+        )
+    })
+}
+
 export default {
     criarEmprestimoRepositories,
     procurarEmprestimoRepositories,
+    procurarEmprestimoIdRepositories,
+    deletarEmprestimoRepositories,
 }
