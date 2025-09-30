@@ -48,7 +48,7 @@ const validacaoLivroId = (request, response, next) => {
 }
 
 const validacaoEmprestimoId = (request, response, next) => {
-    const resultadoEmprestimo = emprestimoIdSchema.safeParse({ emprestimoIs: request.params.emprestimoId })
+    const resultadoEmprestimo = emprestimoIdSchema.safeParse({ emprestimoId: request.params.emprestimoId })
 
     if (!resultadoEmprestimo.success) {
         return response.status(400).json({
@@ -59,7 +59,7 @@ const validacaoEmprestimoId = (request, response, next) => {
         })
     }
 
-    ReadableStreamBYOBRequest.params.emprestimoId = resultadoEmprestimo.data.emprestimoId
+    request.params.emprestimoId = resultadoEmprestimo.data.emprestimoId
     next()
 }
 

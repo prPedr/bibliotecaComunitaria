@@ -23,7 +23,7 @@ async function procurarEmprestimoIdServices(emprestimoId) {
     return emprestimo
 }
 
-async function deletarEmprestimoServices(emprestimoId) {
+async function deletarEmprestimoServices(emprestimoId, usuarioId) {
     const emprestimo = await emprestimoRepositories.procurarEmprestimoIdRepositories(emprestimoId)
     if (!emprestimo) {
         throw new Error("Emprestimo nao encontrado")
@@ -33,7 +33,8 @@ async function deletarEmprestimoServices(emprestimoId) {
         throw new Error("Nao autorizado")
     }
     
-    return emprestimo
+    const deletarEmprestimo = await emprestimoRepositories.deletarEmprestimoRepositories(emprestimoId)
+    return deletarEmprestimo
 }
 
 export default {

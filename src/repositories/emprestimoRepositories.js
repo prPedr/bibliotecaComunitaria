@@ -60,7 +60,7 @@ function procurarEmprestimoIdRepositories(emprestimoId) {
 function deletarEmprestimoRepositories(emprestimoId) {
     return new Promise((resolve, reject) => {
         db.run(
-            `DELETE FROM emprestimos WHERE id = ?` [emprestimoId],
+            `DELETE FROM emprestimos WHERE id = ?`, [emprestimoId],
             function (err) {
                 if (err) {
                     reject(err)

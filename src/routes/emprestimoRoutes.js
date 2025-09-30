@@ -13,6 +13,6 @@ router.get("/emprestimos", emprestimoControllers.procurarEmprestimoControllers)
 router.use(autenticacaoUsuarioMiddlewares)
 router.post("/emprestimos", validacao(emprestimoSchema), emprestimoControllers.criarEmprestimoControllers)
 router.get("/emprestimos/:emprestimoId", validacaoEmprestimoId, emprestimoControllers.procurarEmprestimoIdControllers)
-router.delete("/emprestimos/emprestimoId", validacaoEmprestimoId, emprestimoControllers.deletarEmprestimoControllers)
+router.delete("/emprestimos/:emprestimoId", validacaoEmprestimoId, emprestimoControllers.deletarEmprestimoControllers)
 
 export default router
