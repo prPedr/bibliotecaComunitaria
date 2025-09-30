@@ -4,6 +4,7 @@ import "dotenv/config"
 import usuarioRoutes from "./src/routes/usuarioRoutes.js"
 import livroRoutes from "./src/routes/livroRoutes.js"
 import emprestimoRoutes from "./src/routes/emprestimoRoutes.js"
+import "./src/service/cronServices.js"
 
 const app = express()
 
