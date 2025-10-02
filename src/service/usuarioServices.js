@@ -17,8 +17,8 @@ async function criarUsuarioServices(novoUsuario) {
     return tokeUsuario
 }
 
-async function procurarUsuarioIdServices(id) {
-    const usuario = await usuarioRepositories.procurarUsuarioIdReositories(id)
+async function procurarUsuarioIdServices(usuarioId) {
+    const usuario = await usuarioRepositories.procurarUsuarioIdReositories(usuarioId)
     if (!usuario) {
         throw new Error("Id de usuario nao encontrado")
     }

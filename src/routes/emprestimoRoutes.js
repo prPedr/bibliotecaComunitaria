@@ -8,11 +8,11 @@ import { autenticacaoUsuarioMiddlewares } from "../middlewares/autenticacaoMiddl
 
 const router = Router()
 
-router.get("/emprestimos", emprestimoControllers.procurarEmprestimoControllers)
+router.get("/", emprestimoControllers.procurarEmprestimoControllers)
 
 router.use(autenticacaoUsuarioMiddlewares)
-router.post("/emprestimos", validacao(emprestimoSchema), emprestimoControllers.criarEmprestimoControllers)
-router.get("/emprestimos/:emprestimoId", validacaoEmprestimoId, emprestimoControllers.procurarEmprestimoIdControllers)
-router.delete("/emprestimos/:emprestimoId", validacaoEmprestimoId, emprestimoControllers.deletarEmprestimoControllers)
+router.post("/", validacao(emprestimoSchema), emprestimoControllers.criarEmprestimoControllers)
+router.get("/:emprestimoId", validacaoEmprestimoId, emprestimoControllers.procurarEmprestimoIdControllers)
+router.delete("/:emprestimoId", validacaoEmprestimoId, emprestimoControllers.deletarEmprestimoControllers)
 
 export default router

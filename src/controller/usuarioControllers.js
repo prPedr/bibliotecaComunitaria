@@ -33,10 +33,10 @@ async function listarTodosUsuariosControllers(request, response) {
 }
 
 async function procurarUsuarioIdControllers(request, response) {
-    const {id} = request.params
+    const {usuarioId} = request.params
 
     try {
-        const usuario = await usuarioServices.procurarUsuarioIdServices(id)
+        const usuario = await usuarioServices.procurarUsuarioIdServices(usuarioId)
         response.send({usuario})
     } catch (err) {
         response.status(404).send(err.message)

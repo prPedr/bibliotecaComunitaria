@@ -7,13 +7,13 @@ import {autenticacaoUsuarioMiddlewares} from "../middlewares/autenticacaoMiddlew
 
 const router = Router()
 
-router.post("/usuarios", validacao(usuarioSchema), usuarioControllers.criarUsuarioControllers)
-router.post("/usuarios/login", usuarioControllers.loginUsuarioControllers)
+router.post("/", validacao(usuarioSchema), usuarioControllers.criarUsuarioControllers)
+router.post("/login", usuarioControllers.loginUsuarioControllers)
 
 router.use(autenticacaoUsuarioMiddlewares)
-router.get("/usuarios", usuarioControllers.listarTodosUsuariosControllers)
-router.get("/usuarios/:usuarioId", validacaoUsuarioId, usuarioControllers.procurarUsuarioIdControllers)
-router.patch("/usuarios/:usuarioId", validacaoUsuarioId, usuarioControllers.atualizarUsuarioControllers)
-router.delete("/usuarios/:usuarioId", validacaoUsuarioId, usuarioControllers.deletarUsuarioController)
+router.get("/", usuarioControllers.listarTodosUsuariosControllers)
+router.get("/:usuarioId", validacaoUsuarioId, usuarioControllers.procurarUsuarioIdControllers)
+router.patch("/:usuarioId", validacaoUsuarioId, usuarioControllers.atualizarUsuarioControllers)
+router.delete("/:usuarioId", validacaoUsuarioId, usuarioControllers.deletarUsuarioController)
 
 export default router

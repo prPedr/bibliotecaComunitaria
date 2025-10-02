@@ -7,13 +7,13 @@ import {validacao, validacaoLivroId} from "../middlewares/validacaoMiddlewares.j
 
 const router = Router()
 
-router.get("/livros", livroControllers.procurarLivroControllers)
+router.get("/", livroControllers.procurarLivroControllers)
 
 router.use(autenticacaoUsuarioMiddlewares)
-router.post("/livros", validacao(livroSchema), livroControllers.criarLivroControllers)
-router.get("/livros/pesquisa", livroControllers.pesquisarTituloAutorControllers)
-router.get("/livros/:livroId", validacaoLivroId, livroControllers.procurarLivroIdControllers)
-router.patch("/livros/:livroId", validacaoLivroId, livroControllers.atualizarLivroControllers)
-router.delete("/livros/:livroId", validacaoLivroId, livroControllers.deletarLivroControllers)
+router.post("/", validacao(livroSchema), livroControllers.criarLivroControllers)
+router.get("/pesquisa", livroControllers.pesquisarTituloAutorControllers)
+router.get("/:livroId", validacaoLivroId, livroControllers.procurarLivroIdControllers)
+router.patch("/:livroId", validacaoLivroId, livroControllers.atualizarLivroControllers)
+router.delete("/:livroId", validacaoLivroId, livroControllers.deletarLivroControllers)
 
 export default router

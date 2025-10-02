@@ -1,9 +1,7 @@
 import express from "express"
 import "dotenv/config"
 
-import usuarioRoutes from "./src/routes/usuarioRoutes.js"
-import livroRoutes from "./src/routes/livroRoutes.js"
-import emprestimoRoutes from "./src/routes/emprestimoRoutes.js"
+import {routers} from "./src/routes/index.js"
 import "./src/service/cronServices.js"
 
 const app = express()
@@ -11,9 +9,7 @@ const app = express()
 const porta = process.env.PORTA || 3000
 
 app.use(express.json())
-app.use(usuarioRoutes)
-app.use(livroRoutes)
-app.use(emprestimoRoutes)
+app.use(routers)
 
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta ${porta}`)
