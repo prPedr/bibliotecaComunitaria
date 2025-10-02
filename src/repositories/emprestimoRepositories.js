@@ -30,7 +30,10 @@ function criarEmprestimoRepositories(usuarioId, livroId, dataEntrega) {
 function procurarEmprestimoRepositories() {
     return new Promise((resolve, reject) => {
         db.all(
-            `SELECT * FROM emprestimos`, [],
+            `SELECT emprestimos.id, emprestimos.dataEntrega, usuarios.nomeUsuario, usuarios.email, livros.titulo
+            FROM emprestimos
+            JOIN usuarios ON emprestimos.usuarioId = usuarios.id
+            JOIN livros ON emprestimos.livroId = livros.id`, [],
             (err, linhasEmprestimos) => {
                 if (err) {
                     reject(err)
